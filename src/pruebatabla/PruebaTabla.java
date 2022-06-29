@@ -33,6 +33,12 @@ public class PruebaTabla {
             numFilas++;
             fireTableRowsInserted(numFilas - 1, numFilas - 1);
         }
+        public void eliminaFila() {
+            if (numFilas >= 1){
+                numFilas--;
+                fireTableRowsInserted(numFilas - 1, numFilas - 1);
+            }
+        }
     };
 
     public static void main(String[] args) {
@@ -56,6 +62,14 @@ public class PruebaTabla {
         });
         
         frame.add(botonAnadeFila);
+        
+        JButton botonEliminarFila = new JButton("Eliminar fila");
+        botonEliminarFila.setBounds(43, 400, 800, 25);
+        botonEliminarFila.addActionListener((ActionEvent e) -> {
+            modeloTabla.eliminaFila();
+        });
+        
+        frame.add(botonEliminarFila);
         
         SwingUtilities.invokeLater(() -> {
             frame.setSize(900, 520);
