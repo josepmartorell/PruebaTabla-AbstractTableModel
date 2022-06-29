@@ -37,41 +37,33 @@ public class PruebaTabla {
 
     public static void main(String[] args) {
         final JFrame frame = new JFrame("Prueba Tabla");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
         
-        /*manual interface positioning*/
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Point middle = new Point((int) (screenSize.width / (float)2.22), screenSize.height / 2);
-        Point newLocation = new Point(middle.x - (frame.getWidth() / 2), 
-                                      middle.y - (frame.getHeight() / 2));
-        frame.setLocation(newLocation);
-
-        Container c = frame.getContentPane();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final ModeloTabla modeloTabla = new ModeloTabla();
         JTable tabla = new JTable(modeloTabla);
-        c.add(tabla, BorderLayout.CENTER);
+        tabla.setBounds(10,10,880,310);
+        frame.add(tabla);
+        
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBounds(10,10,880,310);
+        frame.add(scroll);
+        
         JButton botonAnadeFila = new JButton("Añadir fila");
-        /*botonAnadeFila.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                modeloTabla.anadeFila();
-                frame.pack();
-            }
-        });*/
+        botonAnadeFila.setBounds(43, 360, 800, 25);
         botonAnadeFila.addActionListener((ActionEvent e) -> {
             modeloTabla.anadeFila();
-            frame.pack();
         });
         
-        c.add(botonAnadeFila, BorderLayout.SOUTH);
-        frame.pack();
+        frame.add(botonAnadeFila);
         
-        /*SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                frame.setVisible(true);
-            }
-        });*/
         SwingUtilities.invokeLater(() -> {
+            frame.setSize(900, 520);
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+            int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+            frame.setLocation(x, y);
+            frame.setResizable(false);
             frame.setVisible(true);
         });
     }
